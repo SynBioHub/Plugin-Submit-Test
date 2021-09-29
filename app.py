@@ -87,7 +87,7 @@ def run():
             file_url = a_file['url']
             data = str(a_file)
            
-            converted_file_name = f"{file_name}.converted"
+            converted_file_name = secure_filename(f"{file_name}.converted")
             file_path_out = os.path.join(zip_in_dir_name, converted_file_name)
             
             ########## REPLACE THIS SECTION WITH OWN RUN CODE #################
