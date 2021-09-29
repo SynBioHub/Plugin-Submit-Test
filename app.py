@@ -1,5 +1,5 @@
 from flask import Flask, request, abort, send_file, jsonify
-import os, shutil, glob, random, string, tempfile
+import os, shutil, glob, random, string, tempfile, sys, traceback
 
 app = Flask(__name__)
 
@@ -60,9 +60,7 @@ def evaluate():
     
 @app.route("/run", methods=["POST"])
 def run():
-
-    cwd = os.getcwd()
-    
+  
     #create a temporary directory
     temp_dir = tempfile.TemporaryDirectory()
     zip_in_dir_name = temp_dir.name
@@ -70,10 +68,7 @@ def run():
     #take in run manifest
     run_manifest = request.get_json(force=True)
     files = run_manifest['manifest']['files']
-    
-    #Read in template to compare to
-    template_path = os.path.join(cwd, "templates", "darpa_template_blank.xlsx")
-    
+       
     #initiate response manifest
     run_response_manifest = {"results":[]}
     
@@ -91,19 +86,14 @@ def run():
             file_path_out = os.path.join(zip_in_dir_name, converted_file_name)
             
             ########## REPLACE THIS SECTION WITH OWN RUN CODE #################
+            cwd = os.getcwd()
+            
             #read in Test.xml
             with open(file_path, 'r') as xmlfile:
                 result = xmlfile.read()
-            
-            #create random string of letters that is 15 long for display_id
-            length = 15
-            letters = string.ascii_lowercase
-            result_str = ''.join(random.choice(letters) for i in range(length))
-            display_id = result_str
                     
             #put in the url, filename, and instance given by synbiohub
             result = result.replace("TEST_FILE", file_name)
-            result = result.replace("REPLACE_DISPLAYID", display_id)
             result = result.replace("REPLACE_FILENAME", file_name)
             result = result.replace("REPLACE_FILETYPE", file_type)
             result = result.replace("REPLACE_FILEURL", file_url)
@@ -120,8 +110,10 @@ def run():
                                     "sources":[file_name]})
 
         except Exception as e:
-            print(e)
-            abort(415)
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            lnum = exc_tb.tb_lineno
+            abort(415, f'Exception is: {e}, exc_type: {exc_type}, exc_obj: {exc_obj}, fname: {fname}, line_number: {lnum}, traceback: {traceback.format_exc()}')
             
     #create manifest file
     file_path_out = os.path.join(zip_in_dir_name, "manifest.json")
