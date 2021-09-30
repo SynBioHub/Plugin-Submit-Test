@@ -1,4 +1,4 @@
-FROM synbiohub/docker-base-python
+FROM synbiohub/docker-base-python:snapshot
 
 COPY . .
 
