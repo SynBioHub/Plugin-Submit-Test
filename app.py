@@ -32,6 +32,7 @@ def evaluate():
         # ~~~~~~~~~~~ REPLACE THIS SECTION WITH OWN RUN CODE ~~~~~~~~~~~~~~~~~~
         # IN THE SPECIAL CASE THAT THE EXTENSION HAS NO MIME TYPE
         # USE SOMETHING LIKE THIS (UNCOMMENT LINE 29)
+        # NB: THIS WILL REQUIRE UPDATING THE TESTING
         # file_type = file_name.split('.')[-1]
         #
         # #types that can be converted to sbol by this plugin
