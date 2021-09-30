@@ -36,8 +36,7 @@ def run_dict():
                                     "filename": "Somethingelse.html",
                                     "type": "text/html",
                                     "url": "https://dev.synbiohub.org/expose/e9665a54-dbdd-485e-a20b-574e46412fc4"
-                                }
-                                ],
+                                }],
                              },
                 "instanceUrl": "https://dev.synbiohub.org/"
                 }
