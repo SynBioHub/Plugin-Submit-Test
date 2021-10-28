@@ -13,8 +13,8 @@ jobs:
       name: Checkout source code
     - name: Build the Docker image
       run: |
-        repo_name_lower=${{ github.event.repository.name }}| tr [:upper:] [:lower:]
-        echo ${repo_name_lower}
+        repo_name_lower=$(${{ github.event.repository.name }}| tr [:upper:] [:lower:])
+        echo $repo_name_lower
         docker build . --tag synbiohub/${repo_name_lower}:snapshot
     - uses: azure/docker-login@v1
       with:
