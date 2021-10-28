@@ -14,7 +14,6 @@ jobs:
     - name: Build the Docker image
       run: |
         repo_name_lower=$(echo ${{ github.event.repository.name }}| tr [:upper:] [:lower:])
-        echo $repo_name_lower
         tag="synbiohub/${repo_name_lower}:snapshot"
         echo $tag
         docker build . --tag $tag
@@ -24,4 +23,5 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
     - name: Push the image to Docker Hub
       run: |
+        echo $tag
         docker push $tag
