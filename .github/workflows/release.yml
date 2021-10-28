@@ -23,5 +23,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
     - name: Push the image to Docker Hub
       run: |
+        repo_name_lower=$(echo ${{ github.event.repository.name }}| tr [:upper:] [:lower:])
+        tag="synbiohub/${repo_name_lower}:snapshot"
         echo $tag
         docker push $tag
