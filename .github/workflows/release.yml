@@ -13,9 +13,12 @@ jobs:
       name: Checkout source code
     - name: Build the Docker image
       run: |
-        ${{ github.event.repository.name }}| tr [:upper:] [:lower:]
+        repo_name_lower=${{ github.event.repository.name }}| tr [:upper:] [:lower:]
+        echo ${{ github.event.repository.name }}| tr [:upper:] [:lower:]
         echo $repo_name_lower
-        docker build . --tag synbiohub/${${{ github.event.repository.name }}| tr [:upper:] [:lower:]}:snapshot
+        tag="synbiohub/${repo_name_lower}:snapshot"
+        echo tag
+        docker build . --tag tag
     - uses: azure/docker-login@v1
       with:
           username: ${{ secrets.DOCKER_USERNAME }}
