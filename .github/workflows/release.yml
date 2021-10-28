@@ -13,7 +13,8 @@ jobs:
       name: Checkout source code
     - name: Build the Docker image
       run: |
-        repo_name_lower=${{ github.event.repository.name }}| tr [:upper:] [:lower:]
+        repo_name_lower=$(${{ github.event.repository.name }}| tr [:upper:] [:lower:])
+        echo $repo_name_lower
         tag="synbiohub/${repo_name_lower}:snapshot"
         echo $tag
         docker build . --tag $tag
