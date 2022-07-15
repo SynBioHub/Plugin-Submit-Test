@@ -11,7 +11,8 @@ Run pip install -r requirements.txt to install the requirements. Then run `FLASK
 
 # Testing
 To create a test manifest use [this](https://github.com/SynBioHub/Submit-Testing/blob/master/Manifest_creation.py) script. For testing the getting of files a test server can be created using docker or the flask implementation in [this](https://github.com/SynBioHub/Submit-Testing) repository.
-
+ 
+ 
 Example manifest:
 ```
 {"manifest": {"files":[
