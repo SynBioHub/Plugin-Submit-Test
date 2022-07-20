@@ -1,5 +1,5 @@
 # Plugin-Submit-Test
-A very simple submit plugin that returns sbol files with submit information.
+A very simple submit plugin that returns sbol files with submit information
 
 # Install
 ## Docker
